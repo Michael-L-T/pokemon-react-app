@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getFullList, getPokemonUrl } from "./js/dataFunctions";
 import PokemonContainer from './js/PokemonContainer';
+import './App.css';
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -32,7 +33,7 @@ function App() {
     <>
       <div>
         <>
-              <PokemonContainer pokemon={pokemonList} />
+          <PokemonContainer pokemon={pokemonList} />
         </>
       </div>
     </>
