@@ -30,7 +30,11 @@ function App() {
 
   return (
     <>
-      <PokemonContainer pokemonList={pokemonList} />
+      <div>
+        <>
+              <PokemonContainer pokemon={pokemonList} />
+        </>
+      </div>
     </>
   );
 }
