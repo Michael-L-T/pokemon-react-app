@@ -2,6 +2,20 @@ body {
   box-sizing: border-box;
 }
 
+#header {
+  margin: 1em 0;
+}
+
+#header .btn {
+  max-width: 12em;
+  margin: 0 2em 0 auto;
+}
+
+#header .btn button {
+  margin: 0 2px;
+  font-size: 24px;
+}
+
 #main-grid {
   display: flex;
   flex-wrap: wrap;

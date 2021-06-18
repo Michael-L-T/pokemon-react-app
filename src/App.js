@@ -5,12 +5,16 @@ import './App.css';
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
+  const [nextPage, setNextPage] = useState('');
+  const [prevPage, setPrevPage] = useState('');
   const fullListUrl = 'https://pokeapi.co/api/v2/pokemon';
 
   useEffect(() => {
     async function fetchData() {
       let response = await getFullList(fullListUrl);
-      // console.log(response);
+      setNextPage(response.next);
+      setPrevPage(response.previous);
+
       await loadPokemon(response.results);
     }
     fetchData();
@@ -27,12 +31,31 @@ function App() {
 
   };
 
+  const next = async () => {
+    let data = await getFullList(nextPage);
+    await loadPokemon(data.results);
+    setNextPage(data.next);
+    setPrevPage(data.previous);
 
+  };
+
+  const prev = async () => {
+    let data = await getFullList(prevPage);
+    await loadPokemon(data.results);
+    setNextPage(data.next);
+    setPrevPage(data.prev);
+  };
 
   return (
     <>
       <div>
         <>
+          <div id="header">
+            <div className="btn">
+              <button onClick={prev}>Prev</button>
+              <button onClick={next}>Next</button>
+            </div>
+          </div>
           <PokemonContainer pokemon={pokemonList} />
         </>
       </div>
