@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PokemonList from '../pokedata/PokemonList'
+import React, { Component } from 'react';
+import PokemonList from '../pokedata/PokemonList';
 
 export default class MainGrid extends Component {
     render() {

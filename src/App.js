@@ -14,10 +14,6 @@ function App() {
           <>
             <div id="header">
               {/* <NavBar/> */}
-              <div className="btn">
-                  {/* <button onClick={prev}>Prev</button>
-                  <button onClick={next}>Next</button> */}
-              </div>
             </div>
             <MainGrid />
           </>

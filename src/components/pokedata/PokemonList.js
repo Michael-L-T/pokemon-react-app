@@ -2,24 +2,28 @@ import React, { Component, useState, useEffect } from 'react';
 
 import { getFullList, getPokemonUrl } from "./dataFunctions";
 import PokemonCard from './PokemonCard';
+import Pagination from '../layout/Pagination';
+
 
 
 export default function PokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
-  const [nextPage, setNextPage] = useState('');
-  const [prevPage, setPrevPage] = useState('');
-  const fullListUrl = 'https://pokeapi.co/api/v2/pokemon';
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pokemonPerPage, setPokemonPerPage] = useState(20);
+  const fullListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=898';
 
   useEffect(() => {
     async function fetchData() {
       let response = await getFullList(fullListUrl);
-      setNextPage(response.next);
-      setPrevPage(response.previous);
 
       await loadPokemon(response.results);
     }
     fetchData();
   }, []);
+
+  const indexOfLastPokemon = currentPage * pokemonPerPage;
+  const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage;
+  const currentPokemon = pokemonList.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
   const loadPokemon = async (data) => {
     let _pokemon = await Promise.all(
@@ -32,24 +36,17 @@ export default function PokemonList() {
 
   };
 
-  const next = async () => {
-    let data = await getFullList(nextPage);
-    await loadPokemon(data.results);
-    setNextPage(data.next);
-    setPrevPage(data.previous);
 
-  };
-
-  const prev = async () => {
-    let data = await getFullList(prevPage);
-    await loadPokemon(data.results);
-    setNextPage(data.next);
-    setPrevPage(data.previous);
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
-      <PokemonCard pokemon={pokemonList} />
+      <div id="pagination">
+        <Pagination postsPerPage={pokemonPerPage} totalPosts={pokemonList.length} paginate={paginate}/>
+      </div>
+      <div id="pokemon-list">
+        <PokemonCard pokemon={currentPokemon} />
+      </div>
     </>
   );
 }

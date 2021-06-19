@@ -16,7 +16,21 @@ body {
   font-size: 24px;
 }
 
-#main-grid {
+#pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#pagination .page-item {
+  text-align: center;
+  vertical-align: center;
+  padding: 2px;
+  min-width: 1.5rem;
+  list-style-type: none;
+  border: 1px solid black;
+}
+
+#pokemon-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -44,7 +58,7 @@ body {
 }
 
 .PokemonContainer .types > div {
-  bordeR: 1px solid #000;
+  border: 1px solid #000;
   padding: 0.25em;
   border-width: 1px;
   border-radius: 10px;
