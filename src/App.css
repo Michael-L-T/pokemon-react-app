@@ -44,9 +44,10 @@ body {
 }
 
 .PokemonContainer .types > div {
+  bordeR: 1px solid #000;
   padding: 0.25em;
   border-width: 1px;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 5px;
 
 }

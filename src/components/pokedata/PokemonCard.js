@@ -1,10 +1,14 @@
-export default function PokemonContainer({ pokemon }) {
+import React, { Component } from 'react'
+import {HashRouter as Router, Route, Switch } from 'react-router-dom';
+
+
+export default function PokemonCard({ pokemon }) {
     return (
-      <div id="main-grid">
+      <>
         {pokemon.map(p => (
           <div className="PokemonContainer" id={p.name} key={p.name}>
               <div className="img"><img src={p.sprites.front_default} alt="" /></div>
-              <div className="id">{p.name} ({p.id})</div>
+              <div className="id">{p.name} (#{p.id})</div>
 
               <div className="types">
                 {p.types.map(type => {
@@ -16,6 +20,6 @@ export default function PokemonContainer({ pokemon }) {
               <div className="Weight">Weight: {p.weight}</div>
           </div>
         ))}
-      </div>
+      </>
     )
   }
