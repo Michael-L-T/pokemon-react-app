@@ -10,7 +10,10 @@ export default class Pokemon extends Component {
         types: [],
         stats: [],
         description: '',
-        abilities: [],
+        abilities: '',
+        eggGroups: '',
+        generation: '',
+        captureRate: '',
     }
 
     async componentDidMount() {
@@ -62,7 +65,10 @@ export default class Pokemon extends Component {
             specialDefense
         }})
 
-        const abilities = data.abilities;
+        let abilities = data.abilities.map(ability => {
+            return ( ability.ability.name )
+        })
+        abilities = abilities.join(", ");
         this.setState( {abilities} );
         console.log(abilities);
 
@@ -71,6 +77,18 @@ export default class Pokemon extends Component {
         const flavorText = speciesData.flavor_text_entries;
         const description = flavorText[0].flavor_text;
         this.setState({description});
+
+        let eggGroups = speciesData.egg_groups.map(group => {
+            return ( group.name )
+        })
+        eggGroups = eggGroups.join(", ");
+        this.setState({eggGroups});
+
+        const generation = speciesData.generation.name;
+        this.setState({generation});
+
+        const captureRate = speciesData.capture_rate;
+        this.setState({captureRate});
 
     }
 
@@ -106,13 +124,11 @@ export default class Pokemon extends Component {
                         <div className="Description"><p>{this.state.description}</p></div>
                         <div className="Height"><p>Height: {pokemon.height}</p></div>
                         <div className="Weight"><p>Weight: {pokemon.weight}</p></div>
-                        <div className="Abilities">
-                            <p>Abilities:
-                            {this.state.abilities.map(ability => {
-                                return ( <span> {ability.ability.name}</span>)
-                            })}
-                             </p>
-                        </div>
+                        <div className="Abilities"><p>Abilities: {this.state.abilities}</p></div>
+                        <div className="Egg-groups"><p>Egg groups: {this.state.eggGroups}</p></div>
+                        <div className="Generation"><p>Generation: {this.state.generation}</p></div>
+                        <div className="CaptureRate"><p>Capture Rate: {this.state.captureRate}</p></div>
+
                     </div>
                 </div>
 
