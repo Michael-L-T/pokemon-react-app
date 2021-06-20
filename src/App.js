@@ -5,6 +5,7 @@ import {HashRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import MainGrid from './components/layout/MainGrid';
 import Pokemon from './components/pokedata/Pokemon';
+import NavBar from './components/layout/NavBar';
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
         <div>
           <>
             <div id="header">
-              {/* <NavBar/> */}
+              <NavBar/>
             </div>
             <Switch>
               <Route exact path = "/" component={MainGrid} />
