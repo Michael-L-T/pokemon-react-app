@@ -12,6 +12,7 @@ export default function PokemonList() {
   const [pokemonPerPage, setPokemonPerPage] = useState(20);
   const [filter, setFilter] = useState(null);
   const fullListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=898';
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +32,9 @@ export default function PokemonList() {
       }
 
     }
+    setLoading(true);
     fetchData();
+    setLoading(false);
   }, [filter]);
 
   const indexOfLastPokemon = currentPage * pokemonPerPage;
@@ -66,12 +69,14 @@ export default function PokemonList() {
     }
   }
 
+  if (loading) return "Loading...";
+
   return (
     <>
-      <div id="filters">
-        <div className="row generations">
+      <div id="filters" className="row">
+        <div className="col-md-6 generations">
           <h3>Filter by generation:</h3>
-          <button onClick={() => changeFilter(null)} value="Full List">Full List</button>
+          <button onClick={() => changeFilter(null)} value="All">All</button>
           <button onClick={() => changeFilter("Gen1")} value="Gen 1">Gen 1</button>
           <button onClick={() => changeFilter("Gen2")} value="Gen 2">Gen 2</button>
           <button onClick={() => changeFilter("Gen3")} value="Gen 3">Gen 3</button>
@@ -81,7 +86,7 @@ export default function PokemonList() {
           <button onClick={() => changeFilter("Gen7")} value="Gen 7">Gen 7</button>
           <button onClick={() => changeFilter("Gen8")} value="Gen 8">Gen 8</button>
         </div>
-        <div className="row types">
+        <div className="col-md-6 types">
           <h3>Filter by type:</h3>
           <button onClick={() => changeFilter(null)} value="All">All</button>
           <button onClick={() => changeFilter("Normal")} value="Normal">Normal</button>
@@ -103,7 +108,6 @@ export default function PokemonList() {
           <button onClick={() => changeFilter("Dragon")} value="Dragon">Dragon</button>
           <button onClick={() => changeFilter("Steel")} value="Steel">Steel</button>          
           <button onClick={() => changeFilter("Fairy")} value="Fairy">Fairy</button>
-
         </div>
 
       </div>
