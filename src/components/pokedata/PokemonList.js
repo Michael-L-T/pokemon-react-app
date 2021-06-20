@@ -10,7 +10,7 @@ export default function PokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonPerPage, setPokemonPerPage] = useState(20);
-  const [filter, setFilter] = useState("Normal");
+  const [filter, setFilter] = useState(null);
   const fullListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=898';
 
   useEffect(() => {
@@ -62,6 +62,7 @@ export default function PokemonList() {
   const changeFilter = (newFilter) => {
     if (filter !== newFilter) {
       setFilter(newFilter);
+      setCurrentPage(1);
     }
   }
 
