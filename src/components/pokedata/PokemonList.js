@@ -14,19 +14,21 @@ export default function PokemonList() {
   const fullListUrl = 'https://pokeapi.co/api/v2/pokemon?limit=898';
   const [loading, setLoading] = useState(true);
 
+  /* use getFullList() to get the list of pokemon */
+  /* then pass this list to loadPokemon() to populate the pokemonList state with the array of pokemon objects */
   useEffect(() => {
     async function fetchData() {
-      if (filter && filter.indexOf("Gen") === -1) {
+      if (filter && filter.indexOf("Gen") === -1) {       // filtering by type
         let filterUrl = getFilterUrl(filter);
         let response = await getFullList(filterUrl);
         await loadPokemon(response.pokemon);
 
-      } else if (filter) {
+      } else if (filter) {                                  // filtering by generation
         let filterUrl = getFilterUrl(filter);
         let response = await getFullList(filterUrl);
         await loadPokemon(response.results);
 
-      } else {
+      } else {                                              // no filter
         let response = await getFullList(fullListUrl);
         await loadPokemon(response.results);
       }
@@ -36,10 +38,6 @@ export default function PokemonList() {
     fetchData();
     setLoading(false);
   }, [filter]);
-
-  const indexOfLastPokemon = currentPage * pokemonPerPage;
-  const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage;
-  const currentPokemon = pokemonList.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
   const loadPokemon = async (data) => {
     let _pokemon = await Promise.all(
@@ -55,13 +53,18 @@ export default function PokemonList() {
         }
     }))
     setPokemonList(_pokemon);
-    console.log(_pokemon);
-
   };
 
+  /* get the list of pokemon for the current page */
+  /* e.g if on page 6 with 20 per page this should be [101] to [120] */
+  const indexOfLastPokemon = currentPage * pokemonPerPage;
+  const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage;
+  const currentPokemon = pokemonList.slice(indexOfFirstPokemon, indexOfLastPokemon);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  /* if a different filter button is pressed then set the new filter */
+  /* the useEffect will automatically reload with this filter */
   const changeFilter = (newFilter) => {
     if (filter !== newFilter) {
       setFilter(newFilter);
@@ -111,11 +114,12 @@ export default function PokemonList() {
         </div>
 
       </div>
-      <div id="pagination">
-        <Pagination postsPerPage={pokemonPerPage} totalPosts={pokemonList.length} paginate={paginate}/>
-      </div>
+
       <div id="pokemon-list">
         <PokemonCard pokemon={currentPokemon} />
+      </div>
+      <div id="pagination">
+        <Pagination postsPerPage={pokemonPerPage} totalPosts={pokemonList.length} paginate={paginate}/>
       </div>
     </>
   );

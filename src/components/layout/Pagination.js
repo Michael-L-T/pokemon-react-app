@@ -4,6 +4,7 @@ export const Pagination = ({postsPerPage, totalPosts, paginate }) => {
 
     const pageNumbers = [];
 
+    /* create an array of page numbers */
     for(let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNumbers.push(i);
     }

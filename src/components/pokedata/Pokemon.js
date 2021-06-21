@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { getPokemonUrl } from "./dataFunctions";
-
 export default class Pokemon extends Component {
 
     state = {
@@ -16,6 +14,7 @@ export default class Pokemon extends Component {
         captureRate: '',
     }
 
+    /* populate state data after mount */
     async componentDidMount() {
         const { pokemonIndex } = this.props.match.params;
 
@@ -70,7 +69,6 @@ export default class Pokemon extends Component {
         })
         abilities = abilities.join(", ");
         this.setState( {abilities} );
-        console.log(abilities);
 
         let speciesRes = await fetch(pokemonSpeciesUrl);
         let speciesData = await speciesRes.json();
@@ -89,7 +87,6 @@ export default class Pokemon extends Component {
 
         const captureRate = speciesData.capture_rate;
         this.setState({captureRate});
-
     }
 
 

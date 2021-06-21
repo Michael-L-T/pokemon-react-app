@@ -12,7 +12,6 @@ function App() {
 
   return (
     <Router>
-      <>
         <div>
           <>
             <div id="header">
@@ -24,7 +23,6 @@ function App() {
             </Switch>
           </>
         </div>
-      </>
     </Router>
   );
 }

@@ -1,3 +1,5 @@
+/* returns an array of pokemon from  https://pokeapi.co/api/v2/pokemon */
+/* either the full list or with offset and limit params applied */
 export async function getFullList(url) {
     return new Promise((resolve, reject) => {
         fetch(url)
@@ -8,7 +10,10 @@ export async function getFullList(url) {
     })
 };
 
+/* takes a pokemon url e.g. https://pokeapi.co/api/v2/pokemon/9/ */
+/* returns the pokemon object from that url */
 export function getPokemonUrl({ url } ) {
+    console.log(url);
     return new Promise((resolve, reject) => {
         fetch(url)
             .then(res => res.json())
@@ -18,6 +23,7 @@ export function getPokemonUrl({ url } ) {
     });
 }
 
+/* returns the url associated with a filter type */
 export function getFilterUrl(filter) {
     const dictionary = {
         "Gen1": "https://pokeapi.co/api/v2/pokemon?limit=151",
@@ -48,7 +54,6 @@ export function getFilterUrl(filter) {
         "Dark": "https://pokeapi.co/api/v2/type/17",
         "Fairy": "https://pokeapi.co/api/v2/type/18",
     }
-    console.log(dictionary[filter]);
     return dictionary[filter];
 
 }
