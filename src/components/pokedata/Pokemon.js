@@ -72,8 +72,16 @@ export default class Pokemon extends Component {
 
         let speciesRes = await fetch(pokemonSpeciesUrl);
         let speciesData = await speciesRes.json();
+
+        /* get flavor text, filter for english entries only and select the first one */
         const flavorText = speciesData.flavor_text_entries;
-        const description = flavorText[0].flavor_text;
+        let enFlavorText = [];
+        flavorText.forEach(text => {
+            if (text.language.name === 'en') {
+                enFlavorText.push(text.flavor_text);
+            }
+        });
+        const description = enFlavorText[0];
         this.setState({description});
 
         let eggGroups = speciesData.egg_groups.map(group => {
